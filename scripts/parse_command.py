@@ -1,8 +1,7 @@
 #!/usr/bin/python
 # @file command_parser.py
-# @author mconway@Espial.com
+# @author matthew.denis.conway@gmail.com
 # @description Parse the command issued to run mcmock
-# Copyright (C) Espial Limited 2017 Company Confidential - All Rights Reserved
 
 
 import sys
