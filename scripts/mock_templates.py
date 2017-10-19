@@ -1,8 +1,7 @@
 #!/usr/bin/python
 # @file mock_templates.py
-# @author mconway@Espial.com
+# @author matthew.denis.conway@gmail.com
 # @description Templates used to create mock header and source files
-# Copyright (C) Espial Limited 2016 Company Confidential - All Rights Reserved
 
 
 # ##############################################################################
