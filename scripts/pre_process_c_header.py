@@ -1,9 +1,8 @@
 #!/usr/bin/python
 # @file pre_process_c_header.py
-# @author mconway@Espial.com
+# @author matthew.denis.conway@gmail.com
 # @description PreProcess a C header file, duplicating some functions of the
 # Real C Pre-Processor.
-# Copyright (C) Espial Limited 2017 Company Confidential - All Rights Reserved
 
 
 import re
