@@ -1,9 +1,8 @@
 #!/usr/bin/python
 # @file build_mock_data.py
-# @author mconway@Espial.com
+# @author matthew.denis.conway@gmail.com
 # @description Parses the parsed C header data and creates the data required for
 # the mock implementation to be generated
-# Copyright (C) Espial Limited 2017 Company Confidential - All Rights Reserved
 
 
 from mcmock_types import *
