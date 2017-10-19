@@ -1,8 +1,7 @@
 #!/usr/bin/python
 # @file generate_mock_header.py
-# @author mconway@Espial.com
+# @author matthew.denis.conway@gmail.com
 # @description Generate a mock header file
-# Copyright (C) Espial Limited 2017 Company Confidential - All Rights Reserved
 
 
 from mock_templates import *
