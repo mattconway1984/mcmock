@@ -1,12 +1,8 @@
 #!/usr/bin/python
-#
 # @file strip_c_header.py
-#
-# @author mconway@Espial.com
-#
+# @author matthew.denis.conway@gmail.com
 # @description Strip out any content inside the header file that is contained
 # inside "undefined" pre-processor conditional blocks
-#
 # Copyright (C) Espial Limited 2017 Company Confidential - All Rights Reserved
 
 
