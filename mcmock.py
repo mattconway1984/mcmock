@@ -2,11 +2,9 @@
 #
 # @file mcmock.py
 #
-# @author mconway@Espial.com
+# @author matthew.denis.conway@gmail.com
 #
 # @description Run mcmock from the command line.
-#
-# Copyright (C) Espial Limited 2017 Company Confidential - All Rights Reserved
 #
 
 import os
