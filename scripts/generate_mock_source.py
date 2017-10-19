@@ -1,13 +1,7 @@
 #!/usr/bin/python
-#
 # @file create_mock_source.py
-#
-# @author mconway@Espial.com
-#
+# @author matthew.denis.conway@gmail.com
 # @description Generate a mock source file
-#
-# Copyright (C) Espial Limited 2016 Company Confidential - All Rights Reserved
-#
 
 
 from datetime import datetime
