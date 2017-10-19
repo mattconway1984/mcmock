@@ -1,8 +1,7 @@
 #!/usr/bin/python
 # @file mcmock_types.py
-# @author mconway@Espial.com
+# @author matthew.denis.conway@gmail.com
 # @description Custom types used by mcmock
-# Copyright (C) Espial Limited 2017 Company Confidential - All Rights Reserved
 
 
 from enum import Enum
