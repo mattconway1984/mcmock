@@ -1,9 +1,8 @@
 #!/usr/bin/python
 # @file generate_mock.py
-# @author mconway@Espial.com
+# @author matthew.denis.conway@gmail.com
 # @description Generate a mock implementation of a header file and also generate
 # unittest APIs that control the mock
-# Copyright (C) Espial Limited 2017 Company Confidential - All Rights Reserved
 
 import os.path
 import re
