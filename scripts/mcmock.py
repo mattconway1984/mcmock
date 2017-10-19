@@ -1,8 +1,7 @@
 #!/usr/bin/python
 # @file mcmock.py
-# @author mconway@Espial.com
+# @author matthew.denis.conway@gmail.com
 # @description Public API for the mcmock application
-# Copyright (C) Espial Limited 2017 Company Confidential - All Rights Reserved
 
 from parse_command import ParseCommand
 from generate_mock import GenerateMock
