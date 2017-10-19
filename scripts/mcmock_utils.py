@@ -1,8 +1,7 @@
 #!/usr/bin/python
 # @file mcmock_utils.py
-# @author mconway@Espial.com
+# @author matthew.denis.conway@gmail.com
 # @description Utility functions used by mcmock mock generation scripts
-# Copyright (C) Espial Limited 2017 Company Confidential - All Rights Reserved
 
 
 from __future__ import print_function
