@@ -1,9 +1,8 @@
 #!/usr/bin/python
 # @file parse_c_header.py
-# @author mconway@Espial.com
+# @author matthew.denis.conway@gmail.com
 # @description Parse a C header file, creating logical python data structures
 # for the definitions in the C header.
-# Copyright (C) Espial Limited 2017 Company Confidential - All Rights Reserved
 
 
 import re
