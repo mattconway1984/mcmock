@@ -143,6 +143,7 @@ class GenerateMock:
 
 
     def __write_mock_source_file( self, output_directory ):
+        sprint( "Generated mock source file:  ", os.path.realpath( output_directory + self.header_file_name ) )
         mock_source_file_handle = open( output_directory + self.source_file_name, "w+" )
         mock_source_file_handle.write( self.mock_source.get_mock_source_file_contents( self.source_file_name, self.mocked_header_name ) )
         mock_source_file_handle.close()
