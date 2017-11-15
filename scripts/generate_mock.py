@@ -100,8 +100,9 @@ class GenerateMock:
         # need expanding to also check in the system/library includes and
         # pre-parse them as well.
         self.pre_parsed_included_headers = []
+
+        path_to_included_header = None
         for included_header in self.pre_parsed_header.get_included_application_header_list():
-            path_to_included_header = None
             # Start by checking if the included header exists in the same
             # directory as the "header to mock". If it doesn't, check each
             # path supplied to MCMOCK in the list of additional include paths
@@ -142,6 +143,7 @@ class GenerateMock:
 
 
     def __write_mock_source_file( self, output_directory ):
+        sprint( "Generated mock source file:  ", os.path.realpath( output_directory + self.source_file_name ) )
         mock_source_file_handle = open( output_directory + self.source_file_name, "w+" )
         mock_source_file_handle.write( self.mock_source.get_mock_source_file_contents( self.source_file_name, self.mocked_header_name ) )
         mock_source_file_handle.close()
