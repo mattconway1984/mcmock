@@ -2,8 +2,6 @@
  * @file mcmock.c
  *
  * @brief Contains the mcmock implementation.
- *
- * Copyright (C) Espial Limited 2017 Company Confidential - All Rights Reserved
  */
 
 

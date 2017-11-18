@@ -5,8 +5,6 @@
  * where mock implementations can register and unregister themselves. As well as
  * allowing mocks to register test expectations so the order of the calls made
  * by the code under test can be verified to be correct.
- *
- * Copyright (C) Espial Limited 2017 Company Confidential - All Rights Reserved
  */
 
 #ifndef INCLUDE_MCMOCK_H
