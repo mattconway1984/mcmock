@@ -5,9 +5,10 @@
 
 
 from datetime import datetime
-from mock_templates import *
-from mcmock_utils import *
-from mcmock_types import *
+
+from mcmock.mock_templates import *
+from mcmock.mcmock_utils import *
+from mcmock.mcmock_types import *
 
 
 class GenerateMockSource:

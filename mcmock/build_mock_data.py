@@ -5,10 +5,10 @@
 # the mock implementation to be generated
 
 
-from mcmock_types import *
-from mcmock_utils import *
-from mock_templates import *
-from parse_c_header import CHeaderParser
+from mcmock.mcmock_types import *
+from mcmock.mcmock_utils import *
+from mcmock.mock_templates import *
+from mcmock.parse_c_header import CHeaderParser
 
 
 class MockDataBuilder:

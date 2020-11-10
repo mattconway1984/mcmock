@@ -7,15 +7,14 @@
 import os.path
 import re
 
-from strip_c_header import StripCHeader
-from pre_parse_c_header import PreParseCHeader
-from pre_process_c_header import PreProcessCHeader
-from parse_c_header import CHeaderParser
-from build_mock_data import MockDataBuilder
-from generate_mock_source import GenerateMockSource
-from generate_mock_header import GenerateMockHeader
-
-from mcmock_utils import *
+from mcmock.strip_c_header import StripCHeader
+from mcmock.pre_parse_c_header import PreParseCHeader
+from mcmock.pre_process_c_header import PreProcessCHeader
+from mcmock.parse_c_header import CHeaderParser
+from mcmock.build_mock_data import MockDataBuilder
+from mcmock.generate_mock_source import GenerateMockSource
+from mcmock.generate_mock_header import GenerateMockHeader
+from mcmock.mcmock_utils import *
 
 
 class GenerateMock:

@@ -4,9 +4,10 @@
 # @description Generate a mock header file
 
 
-from mock_templates import *
-from mcmock_utils import *
 from datetime import datetime
+
+from mcmock.mock_templates import *
+from mcmock.mcmock_utils import *
 
 
 class GenerateMockHeader:

@@ -4,9 +4,9 @@
 # @description Utility functions used by mcmock mock generation scripts
 
 
-from __future__ import print_function
 import sys
-from mcmock_types import Parameter, ParameterType
+
+from mcmock.mcmock_types import Parameter, ParameterType
 
 
 def mcmock_utils_convert_params_list_to_string( parameters ):

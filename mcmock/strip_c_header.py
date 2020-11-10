@@ -7,7 +7,7 @@
 
 
 import re
-from mcmock_utils import *
+from mcmock.mcmock_utils import *
 
 
 class StripCHeader:

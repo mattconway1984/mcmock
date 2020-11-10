@@ -6,8 +6,9 @@
 
 
 import re
-from mcmock_types import ParameterType, Parameter, Function, TypedefType, Typedef
-from mcmock_utils import *
+
+from mcmock.mcmock_types import ParameterType, Parameter, Function, TypedefType, Typedef
+from mcmock.mcmock_utils import *
 
 
 class CHeaderParser:
