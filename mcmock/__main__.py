@@ -1,13 +1,6 @@
-#!/usr/bin/python
-# @file mcmock.py
-# @author matthew.denis.conway@gmail.com
-# @description Public API for the mcmock application
-
-from parse_command import ParseCommand
-from generate_mock import GenerateMock
-from mcmock_utils import sprint, eprint, exit_on_error
-
-import os
+from mcmock.parse_command import ParseCommand
+from mcmock.generate_mock import GenerateMock
+from mcmock.mcmock_utils import sprint, eprint, exit_on_error
 
 
 def generate_mocks( command_data ):
@@ -21,8 +14,8 @@ def generate_mocks( command_data ):
                 command_data.get_additional_includes() )
 
 
-def run_from_cmd_line( argv ):
-    command_data = ParseCommand( argv )
+def run_from_cmd_line(args):
+    command_data = ParseCommand(args)
     if command_data.get_command_errors():
         exit_on_error( command_data.get_command_errors() )
     elif not command_data.get_headers_to_mock():
@@ -31,3 +24,10 @@ def run_from_cmd_line( argv ):
         sprint( command_data.get_help_message() )
     else:
         generate_mocks( command_data )
+
+
+def main(*args):
+    """
+    Main entry point for the mcmock application.
+    """
+    run_from_cmd_line(args)

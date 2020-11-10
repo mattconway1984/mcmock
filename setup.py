@@ -7,7 +7,12 @@ setuptools.setup(
     name="mcmock",
     version=versioneer.get_version(),
     cmdclass=versioneer.get_cmdclass(),
-    packages=setuptools.find_namespace_packages(include=['mcmock']),
+    packages=setuptools.find_packages(),
     install_requires=[],
+    entry_points={
+        'console_scripts': [
+            "mcmock = mcmock.__main__:main"
+        ],
+    },
     python_requires=">=3.8"
 )
