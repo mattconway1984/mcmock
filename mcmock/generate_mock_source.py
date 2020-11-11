@@ -25,7 +25,7 @@ class GenerateMockSource:
     def __init__( self, pre_parsed_header, parsed_header, mock_data_builder, component_to_mock_name, include_mocked_header ):
         self.file_source = self.__add_file_banner( component_to_mock_name )
         self.file_source += self.__add_default_included_headers( component_to_mock_name, include_mocked_header )
-        self.file_source += self.__add_application_included_headers( pre_parsed_header.get_included_application_header_list() )
+        self.file_source += self.__add_application_included_headers( pre_parsed_header.included_application_headers )
         self.file_source += self.__add_system_included_headers( pre_parsed_header.get_included_system_header_list() )
         self.file_source += self.__add_mocked_api_string_names( parsed_header.get_function_list() )
         self.file_source += self.__add_data_structures_for_api_conditions( parsed_header.get_function_list(), mock_data_builder )
@@ -44,7 +44,7 @@ class GenerateMockSource:
 
     def __add_default_included_headers( self, component_to_mock_name, include_mocked_header ):
         result = template_default_includes.replace( '<mocked_header_name>', component_to_mock_name )
-        result = result.replace( '<mocked_header>', include_mocked_header )
+        result = result.replace( '<mocked_header>', str(include_mocked_header) )
         return result
 
 

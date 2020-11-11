@@ -17,9 +17,22 @@ class PreParseCHeader:
         return self.filename
 
 
-    # API to get a list of included application headers
-    def get_included_application_header_list( self ):
-        return self.included_application_headers
+    @property
+    def included_application_headers( self ):
+        """
+        list[str]: Names of included application headers.
+
+        This list represents all the includes that exist in the header file
+        that has been parsed, for example:
+
+            #include "my_api.h"
+            #include "sub/another_api.h"
+
+        would be returned as:
+
+            ["my_api.h", "sub/another_api.h"]
+        """
+        return self._included_application_headers
 
 
     # API to get a list of included system and/or library headers
@@ -56,7 +69,7 @@ class PreParseCHeader:
 
     def __init__( self, filename, file_data ):
         self.filename = filename
-        self.included_application_headers = []
+        self._included_application_headers = []
         self.included_system_headers = []
         self.defined_symbols = []
         self.typedefs = []
@@ -130,7 +143,7 @@ class PreParseCHeader:
         for line in stripped_content:
             matched = re.match( r'#include +"([\/\.A-Za-z0-9_-]+)*"', line)
             if ( matched ):
-                self.included_application_headers.append( matched.group(1) )
+                self._included_application_headers.append( matched.group(1) )
             else:
                 matched = re.match( r'#include +<([\/\.A-Za-z0-9_-]+)*>', line)
                 if matched:

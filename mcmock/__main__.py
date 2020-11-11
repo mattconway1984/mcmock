@@ -4,8 +4,7 @@ import argparse
 import os
 import textwrap
 
-import mcmock
-from mcmock.generate_mock import GenerateMock
+from mcmock.mcmock import McMock
 
 
 _DESCRIPTION="""mcmock
@@ -38,7 +37,13 @@ def _parse_command_args():
     parser.add_argument(
         "-v",
         action="version",
-        version=f"{mcmock.__version__}")
+        version=f"{McMock.version}")
+    parser.add_argument(
+        "--mock",
+        "-m",
+        nargs="*",
+        help="Paths to header files to be mocked.",
+        required=True)
     parser.add_argument(
         "--output",
         "-o",
@@ -49,12 +54,6 @@ def _parse_command_args():
         "-i",
         nargs="*",
         help="Path(s) to depended include files; directories containing header files.")
-    parser.add_argument(
-        "--mock",
-        "-m",
-        nargs="*",
-        help="Paths to header files to be mocked.",
-        required=True)
     return parser.parse_args()
 
 
@@ -63,17 +62,8 @@ def main():
     Main entry point for the mcmock application.
     """
     args = _parse_command_args()
-
-
-def generate_mocks( command_data ):
-    for header in command_data.get_headers_to_mock():
-        sprint( "Generating Mock for %s"%( header ) )
-        mock_generator = \
-            GenerateMock( \
-                command_data.get_root_include_directory(), \
-                command_data.get_output_directory(), \
-                header, \
-                command_data.get_additional_includes() )
+    mcmock = McMock(args.mock, args.output, args.include)
+    mcmock.generate()
 
 
 if __name__ == "__main__":

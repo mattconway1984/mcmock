@@ -1,9 +1,3 @@
-#!/usr/bin/python
-# @file generate_mock.py
-# @author matthew.denis.conway@gmail.com
-# @description Generate a mock implementation of a header file and also generate
-# unittest APIs that control the mock
-
 import os.path
 import re
 
@@ -18,79 +12,81 @@ from mcmock.mcmock_utils import *
 
 
 class GenerateMock:
+    """
+    Generate a mock implementation of a header file and also generate
 
+    Args:
+        header_to_mock (PathLib.Path): The header to be mocked.
+        include_path (list[PathLib.Path]): List of include paths to other headers.
+        output_path (PathLib.Path): Output path (where generated mocks will be written).
+    """
 
-    def __remove_comments( self, unparsed_data ):
-        # Convert the list of strings (the file data) into a single string
-        full_file = ''
-        for line in unparsed_data:
-            full_file += line
-        return re.sub( r'(\/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*\/+)|(//.*)', '', full_file).splitlines()
-
-
-    def __remove_whitespace_lines( self, unparsed_data ):
-        stripped = []
-        for line in unparsed_data:
-            if not ( re.match(r'^\s*$', line) ):
-                stripped.append( line.strip() )
-        return stripped
-
-
-    def __init__( self, root_include_directory, output_directory, header_to_mock, additional_include_directories=[] ):
-        self.__create_mock_names( header_to_mock )
+    # TODO: Modified the init args, no tests to verify so can't know if anything
+    # has been broken:
+    def __init__(
+            self,
+            header_to_mock,
+            include_paths,
+            output_path):
+        self._create_mock_names( header_to_mock )
         self.include_mocked_header = header_to_mock
-        self.__preprocess_and_parse_header_file( root_include_directory, header_to_mock, additional_include_directories )
+        self._preprocess_and_parse_header_file(header_to_mock, include_paths)
         self.__generate_mock_files()
         if not output_directory.endswith( '/' ):
             output_directory = output_directory + '/'
-        self.__write_mock_header_file( output_directory + os.path.dirname( header_to_mock ) + '/' )
-        self.__write_mock_source_file( output_directory + os.path.dirname( header_to_mock ) + '/' )
 
+    def generate(self):
+        # TODO: This needs to be fixed
+        print(f"Opening header file to mock: {header_to_mock}")
+        self.__write_mock_header_file(output_directory + os.path.dirname( header_to_mock ) + '/' )
+        self.__write_mock_source_file(output_directory + os.path.dirname( header_to_mock ) + '/' )
 
-    def __create_mock_names( self, header_to_mock ):
-        # Only interested in the filname at this point...
-        header_to_mock = os.path.basename( header_to_mock )
-        self.mock_name = header_to_mock.split( '.h', 1 )[0].replace( "/", "_" )
-        self.header_file_name = "mock_%s.h"%( self.mock_name )
-        self.source_file_name = "mock_%s.c"%( self.mock_name )
+    def _create_mock_names(self, header_to_mock):
+        header_to_mock = os.path.basename(header_to_mock)
+        self.mock_name = header_to_mock.split('.h', 1 )[0].replace("/", "_")
+        self.header_file_name = "mock_%s.h"%(self.mock_name)
+        self.source_file_name = "mock_%s.c"%(self.mock_name)
         self.mocked_header_name = header_to_mock
 
+    def _strip_empty_lines(self, data: list[str]):
+        stripped = []
+        for line in data:
+            if not (re.match(r'^\s*$', line)):
+                stripped.append(line.strip())
+        return stripped
 
-    def __preprocess_and_parse_header_file( self, root_include_directory, header_to_mock, additional_include_directories ):
-        # This is a very important function, it generates some very useful data
-        # structures used to generate the mock, these are:
+    def _strip_comments(self, data: list[str]):
+        return \
+            re.sub(
+                r'(\/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*\/+)|(//.*)',
+                '',
+                "".join(data)).splitlines()
+
+    def _preprocess_and_parse_header_file(self, header_to_mock, include_paths):
+        # Creates the following data items:
         #
         # self.pre_parsed_header            # Pre-Parsed instance of the "header to mock" (#includes, #defines & typedefs)
         # self.pre_parsed_included_headers  # Pre-Parsed instances of any (available) headers included by "header to mock"
         # self.parsed_header                # Parsed instance (contains the parsed APIs) of the "header to mock"
 
-        # Ensure the path to the root of where the "header to mock" lives is
-        # going to be valid before trying to open the file
-        header_path = ""
-        useful_error_msg = ""
-        if os.path.isfile( os.path.join(root_include_directory, header_to_mock) ):
-            header_path = os.path.join(root_include_directory, header_to_mock)
-        else:
-            useful_error_msg = "    Tried: " + os.path.join(root_include_directory, header_to_mock) + "\n"
-            for include_dir in additional_include_directories:
-                if os.path.isfile( os.path.join(include_dir, header_to_mock) ):
-                    header_path = os.path.join(include_dir, header_to_mock)
-                    break;
-                else:
-                    useful_error_msg = "    Tried: " + os.path.join(include_dir, header_to_mock) + "\n"
-        if not header_path:
-            exit_on_error( "ERROR: Could not find header file to mock: " + header_to_mock + "\n" + useful_error_msg )
-        sprint( "Opening header file to mock: ", header_path )
-        source_file_handle = open( header_path, "r" );
-        header_file_data = source_file_handle.readlines()
-        source_file_handle.close()
+        print(f"Opening header file to mock: {header_to_mock}")
+        header_file_data = None
+        with header_to_mock.open("r") as handle:
+            header_file_data = handle.readlines()
 
-        working_copy = []
-        working_copy = list( self.__remove_comments( header_file_data ) )
-        working_copy = list( self.__remove_whitespace_lines( working_copy ) )
-        header_file_data = list( working_copy )
+        header_file_data = self._strip_empty_lines(header_file_data)
+        header_file_data = self._strip_comments(header_file_data)
 
-        self.pre_parsed_header = PreParseCHeader( os.path.join(root_include_directory, header_to_mock), header_file_data )
+        self.pre_parsed_header = \
+            PreParseCHeader(header_to_mock, header_file_data)
+
+    ######
+
+    # TODO: CONTINUE FROM HERE - note there could well be errors in the
+    # refactor above, without tests it's impossible to tell as this code is
+    # pretty rotten.
+
+    ######
 
         # The "header to mock" may include other header files - each of these
         # must be individually parsed to extract key information about any

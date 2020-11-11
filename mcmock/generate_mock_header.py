@@ -24,7 +24,7 @@ class GenerateMockHeader:
     def __init__( self, pre_parsed_header, mock_data_builder, component_to_mock_name, mocked_header_name ):
         generation_date = "%02d/%02d/%04d"%( datetime.now().day, datetime.now().month, datetime.now().year )
         mock_file_banner = mocked_file_banner_template.replace( "<generation_date>", generation_date )
-        file_data = self.__add_application_included_headers( pre_parsed_header.get_included_application_header_list(), mocked_header_name )
+        file_data = self.__add_application_included_headers( pre_parsed_header.included_application_headers, mocked_header_name )
         file_data += self.__add_system_included_headers( pre_parsed_header.get_included_system_header_list() )
         file_data += self.__add_mock_type_definitions( mock_data_builder.get_mock_typedefs() )
         file_data += self.__create_mock_api_definitions( mock_data_builder.get_build_mock_data() )
