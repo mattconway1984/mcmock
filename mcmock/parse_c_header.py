@@ -31,11 +31,11 @@ class CHeaderParser:
     # PRIVATE IMPLEMENTATION
     #
     # CHeaderParser( stripped_header, pre_parsed_header, pre_parsed_included_headers )
-    def __init__( self, stripped_data, pre_parsed_header, pre_parsed_included_headers ):
+    def __init__( self, pre_parsed_header, pre_parsed_included_headers ):
         working_copy = []
         self.function_list = []
         self.auto_gen_id = 0;
-        working_copy = list( self.__merge_multiline_variable_definitions( stripped_data ) )
+        working_copy = list( self.__merge_multiline_variable_definitions( pre_parsed_header.unparsed_content ) )
         working_copy = list( self.__concatenate_multi_line_split_lines( working_copy ) )
         working_copy = list( self.__parse_defined_variables( working_copy ) )
         self.__parse_function_definitions( working_copy, pre_parsed_header, pre_parsed_included_headers )

@@ -44,7 +44,7 @@ class GenerateMockSource:
 
     def __add_default_included_headers( self, component_to_mock_name, include_mocked_header ):
         result = template_default_includes.replace( '<mocked_header_name>', component_to_mock_name )
-        result = result.replace( '<mocked_header>', str(include_mocked_header) )
+        result = result.replace( '<mocked_header>', include_mocked_header.name )
         return result
 
 

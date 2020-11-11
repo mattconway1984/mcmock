@@ -8,7 +8,6 @@
 from mcmock.mcmock_types import *
 from mcmock.mcmock_utils import *
 from mcmock.mock_templates import *
-from mcmock.parse_c_header import CHeaderParser
 
 
 class MockDataBuilder:

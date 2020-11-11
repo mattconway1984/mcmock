@@ -13,8 +13,9 @@ from mcmock.mcmock_utils import *
 
 class PreProcessCHeader:
 
-    def get_pre_processed( self ):
-        return self.pre_processed
+    @property
+    def output(self):
+        return self._pre_processed
 
     # API to pre process macros in the header file; this function will try to
     # replicate what the C Pre-Processor does by expanding macros in the header
@@ -22,7 +23,7 @@ class PreProcessCHeader:
     # NOTE: This will probably not work for all macros, as it's very difficult
     # to replicate the C Pre-Processor!
     def __init__( self, pre_parsed_header, pre_parsed_included_headers ):
-        self.pre_processed = []
+        self._pre_processed = []
 
         known_symbols_list = list( pre_parsed_header.get_defined_symbols())
         for header in pre_parsed_included_headers:
@@ -54,8 +55,7 @@ class PreProcessCHeader:
                         # Copy the C Pre-Processor: Replace instances of foo##bar with foobar
                         temp = re.sub( r'\s*##\s*', '', temp )
             if temp == '':
-                working_copy.append( line.strip() )
+                working_copy.append(line.strip())
             else:
-                working_copy.append( temp.strip() )
-        self.pre_processed = list( working_copy )
-
+                working_copy.append(temp.strip())
+        self._pre_processed = working_copy

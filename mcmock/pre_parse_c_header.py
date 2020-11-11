@@ -12,6 +12,12 @@ from mcmock.mcmock_utils import *
 
 
 class PreParseCHeader:
+    """
+    Represents a pre-parsed header file.
+
+    Args:
+        filename (pathlib.Path): path to the pre-parsed header.
+    """
 
     def get_filename( self ):
         return self.filename
@@ -67,19 +73,41 @@ class PreParseCHeader:
 
 
 
-    def __init__( self, filename, file_data ):
-        self.filename = filename
+    def __init__(self, header_file):
+        self._header_file = header_file
         self._included_application_headers = []
         self.included_system_headers = []
         self.defined_symbols = []
         self.typedefs = []
-        working_copy = list( file_data )
+        with self._header_file.open("r") as handle:
+            header_data = handle.readlines()
+        header_data = self._strip_comments(header_data)
+        header_data = self._strip_whitespace(header_data)
+        working_copy = list( header_data )
         working_copy = list( self.__parse_defined_symbols( working_copy ) )
         working_copy = list( self.__parse_included_headers( working_copy ) )
         working_copy = list( self.__split_multi_statement_lines( working_copy ) )
         working_copy = list( self.__parse_typedefs( working_copy ) )
-        self.unparsed_content = list( working_copy )
+        self.unparsed_content = working_copy
 
+    @staticmethod
+    def _strip_comments(lines):
+        """
+        Strip C/C++ comments from the source file (lines).
+        """
+        return \
+            re.sub(
+                r"\/\*(.|[\r\n])+?\*\/|//.*",
+                "",
+                "".join(lines)).splitlines()
+
+    @staticmethod
+    def _strip_whitespace(lines):
+        stripped = []
+        for line in lines:
+            if line:
+                stripped.append(line.strip())
+        return stripped
 
     def __split_multi_statement_lines( self, unparsed_data ):
         expanded = []
@@ -88,7 +116,7 @@ class PreParseCHeader:
             open_brace_count = 0
             line_to_add = ''
             x=0
-            for x in range( 0, len( line ) ):
+            for x in range(0, len(line)):
                 c = line[x]
                 line_to_add += c
                 if c == '{':
@@ -247,7 +275,3 @@ class PreParseCHeader:
                 add_active_typedef = False
                 active_typedef = ''
         return working_copy
-
-
-
-

@@ -77,4 +77,3 @@ class GenerateMockHeader:
             api_definition += "%s)"%(params_string)
             mock_definitions += "%s;\n"%( api_definition )
         return mock_definitions
-
